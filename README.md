@@ -2,8 +2,25 @@
 
 <https://docs.docker.com/compose/django/#create-a-django-project>
 
-Create the Django project by running the docker-compose run command as follows:
+- Create the Django project
 ```sh
-sudo docker-compose run web django-admin.py startproject composeexample .
+sudo docker-compose run web django-admin.py startproject <project-name> .
 ```
-This instructs Compose to run `django-admin.py startproject composeexample` in a container, using the `web` service’s image and configuration.
+
+- Connect db in `<project-name>/settings.py`
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
+    }
+}
+```
+
+- Start app on <http://localhost:8000>
+```sh
+docker-compose up
+```
